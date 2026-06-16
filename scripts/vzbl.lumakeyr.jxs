@@ -1,0 +1,13 @@
+<jittershader name="vzbl.lumakeyr">
+	<param name="threshold" type="float" default="0.5" />
+	<param name="softness"  type="float" default="0.05" />
+	<param name="invert"    type="int"   default="0" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0"      program="fp" />
+		<bind param="threshold" program="fp" />
+		<bind param="softness"  program="fp" />
+		<bind param="invert"    program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.lumakeyr.fp.glsl" />
+	</language>
+</jittershader>

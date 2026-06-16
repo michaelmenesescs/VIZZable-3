@@ -1,0 +1,13 @@
+<jittershader name="vzbl.clrMapr">
+	<param name="color0" type="vec3"  default="0.0 0.0 0.0" />
+	<param name="color1" type="vec3"  default="1.0 1.0 1.0" />
+	<param name="amount" type="float" default="1.0" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0"   program="fp" />
+		<bind param="color0" program="fp" />
+		<bind param="color1" program="fp" />
+		<bind param="amount" program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.clrMapr.fp.glsl" />
+	</language>
+</jittershader>

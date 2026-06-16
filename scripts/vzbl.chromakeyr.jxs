@@ -1,0 +1,13 @@
+<jittershader name="vzbl.chromakeyr">
+	<param name="keycolor"  type="vec3"  default="0.0 1.0 0.0" />
+	<param name="tolerance" type="float" default="0.3" />
+	<param name="softness"  type="float" default="0.05" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0"      program="fp" />
+		<bind param="keycolor"  program="fp" />
+		<bind param="tolerance" program="fp" />
+		<bind param="softness"  program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.chromakeyr.fp.glsl" />
+	</language>
+</jittershader>

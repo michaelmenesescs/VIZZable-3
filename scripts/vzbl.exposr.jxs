@@ -1,0 +1,11 @@
+<jittershader name="vzbl.exposr">
+	<param name="brightness" type="float" default="0.0" />
+	<param name="contrast"   type="float" default="0.0" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0"       program="fp" />
+		<bind param="brightness" program="fp" />
+		<bind param="contrast"   program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.exposr.fp.glsl" />
+	</language>
+</jittershader>

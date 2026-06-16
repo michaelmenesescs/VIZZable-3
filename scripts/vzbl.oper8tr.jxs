@@ -1,0 +1,12 @@
+<jittershader name="vzbl.oper8tr">
+	<param name="mode"   type="int"   default="0" />
+	<param name="amount" type="float" default="1.0" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0"   program="fp" />
+		<bind param="tex1"   program="fp" />
+		<bind param="mode"   program="fp" />
+		<bind param="amount" program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.oper8tr.fp.glsl" />
+	</language>
+</jittershader>

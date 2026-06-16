@@ -1,0 +1,10 @@
+<jittershader name="vzbl.alphaBlendr">
+	<param name="mix_amount" type="float" default="0.5" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0"       program="fp" />
+		<bind param="tex1"       program="fp" />
+		<bind param="mix_amount" program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.alphaBlendr.fp.glsl" />
+	</language>
+</jittershader>

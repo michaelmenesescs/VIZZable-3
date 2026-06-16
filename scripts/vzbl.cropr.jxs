@@ -1,0 +1,15 @@
+<jittershader name="vzbl.cropr">
+	<param name="cx" type="float" default="0.5" />
+	<param name="cy" type="float" default="0.5" />
+	<param name="cw" type="float" default="1.0" />
+	<param name="ch" type="float" default="1.0" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0" program="fp" />
+		<bind param="cx"   program="fp" />
+		<bind param="cy"   program="fp" />
+		<bind param="cw"   program="fp" />
+		<bind param="ch"   program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.cropr.fp.glsl" />
+	</language>
+</jittershader>
