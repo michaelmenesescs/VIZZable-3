@@ -1,0 +1,11 @@
+<jittershader name="vzbl.noisr">
+	<param name="amount" type="float" default="0.0" />
+	<param name="seed"   type="float" default="0.0" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0"   program="fp" />
+		<bind param="amount" program="fp" />
+		<bind param="seed"   program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.noisr.fp.glsl" />
+	</language>
+</jittershader>

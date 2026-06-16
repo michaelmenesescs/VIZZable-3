@@ -1,0 +1,17 @@
+<jittershader name="vzbl.particles">
+	<param name="density" type="float" default="0.5" />
+	<param name="size"    type="float" default="0.3" />
+	<param name="speed"   type="float" default="0.5" />
+	<param name="phase"   type="float" default="0.0" />
+	<param name="color"   type="vec3"  default="1.0 1.0 1.0" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0"    program="fp" />
+		<bind param="density" program="fp" />
+		<bind param="size"    program="fp" />
+		<bind param="speed"   program="fp" />
+		<bind param="phase"   program="fp" />
+		<bind param="color"   program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.particles.fp.glsl" />
+	</language>
+</jittershader>
