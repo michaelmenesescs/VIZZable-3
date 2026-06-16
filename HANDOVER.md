@@ -97,11 +97,20 @@ Every new shader uses `vzbl.v001.scanlines.vp.glsl` as vertex shader.
 
 ---
 
+## Completed (this session, after initial commit)
+
+- ✅ `breathr` + `slicr`: animated phase via `r vzblmetro → counter 628 → * 0.01 → prepend param phase → slab inlet 1`
+- ✅ `sprinklr`: animated seed via same pattern (`counter 628 → * 0.001`)
+- ✅ `clrMapr`: rebuilt with 6 R/G/B dials (color0 dark, color1 light) + `pak` → `prepend param color0/color1`
+- ✅ `lumakeyr`: added `invert` toggle (live.text nrm/inv) → `prepend param invert`
+
+---
+
 ## Remaining TODO (Priority Order)
 
 ### HIGH — Fix existing patches
 
-#### 1. Animate `phase` in `vzbl.breathr.maxpat` and `vzbl.slicr.maxpat`
+#### 1. ~~Animate `phase` in `vzbl.breathr.maxpat` and `vzbl.slicr.maxpat`~~ DONE
 Both shaders have a `phase` uniform that needs to be driven by a counter to create motion.
 Add this pattern inside each patch:
 
@@ -111,17 +120,9 @@ r vzblmetro → counter 0 628 → * 0.01 → prepend param phase → slab inlet 
 
 The `counter` object counts 0–628 (≈ 2π × 100) and resets, creating a smooth phase ramp at 30 fps.
 
-#### 2. Animate `seed` in `vzbl.sprinklr.maxpat`
-The `seed` uniform in `vzbl.sprinklr.jxs` is currently static (dial only).
-Add an auto-advance option:
+#### 2. ~~Animate `seed` in `vzbl.sprinklr.maxpat`~~ DONE
 
-```
-r vzblmetro → counter 0 1000 → * 0.001 → prepend param seed → slab inlet 1
-```
-
-Or add a `live.text` "AUTO" toggle that switches between manual seed dial and the metro counter.
-
-#### 3. Add color pickers to `vzbl.clrMapr.maxpat`
+#### 3. ~~Add color pickers to `vzbl.clrMapr.maxpat`~~ DONE
 The `vzbl.clrMapr.fp.glsl` shader has `uniform vec3 color0` and `uniform vec3 color1`.
 The current patch only has an `amount` dial; color0 defaults to black and color1 to white.
 
@@ -135,9 +136,7 @@ Route each dial → `prepend param color0` with a `pak` to build the vec3:
 
 The `vzbl.clrMapr.jxs` file binds `color0` and `color1` as `vec3` params — check that the jxs file has the correct type declaration (`type="vec3"`). It currently may be missing — verify and update `scripts/vzbl.clrMapr.jxs` if needed.
 
-#### 4. Add `invert` toggle to `vzbl.lumakeyr.maxpat`
-The `vzbl.lumakeyr.fp.glsl` shader has `uniform int invert` but the patch has no control for it.
-Add a `live.text` toggle → `prepend param invert` → slab inlet 1.
+#### 4. ~~Add `invert` toggle to `vzbl.lumakeyr.maxpat`~~ DONE
 
 ---
 
