@@ -1,0 +1,9 @@
+<jittershader name="vzbl.pixel8r">
+	<param name="blocksize" type="int" default="8" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0" program="fp" />
+		<bind param="blocksize" program="fp" />
+		<program name="vp" type="vertex" source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.pixel8r.fp.glsl" />
+	</language>
+</jittershader>

@@ -1,0 +1,9 @@
+<jittershader name="vzbl.kaleidr">
+	<param name="sides" type="int" default="6" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0" program="fp" />
+		<bind param="sides" program="fp" />
+		<program name="vp" type="vertex" source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.kaleidr.fp.glsl" />
+	</language>
+</jittershader>
