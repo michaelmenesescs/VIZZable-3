@@ -151,33 +151,26 @@ Implemented as GLSL shader: reads `plugin~` amplitude → ring+spoke Lissajous p
 #### 7. `vzbl.INPUT/vzbl.particles.maxpat` — Particle system ✅ DONE
 Implemented via cellular-noise GLSL shader: density/size/speed dials + color RGB + auto-animated phase.
 
-#### 8. `vzbl.INPUT/vzbl.buffr.maxpat` — Multi-frame history buffer ⚠️ REMAINING
-The most complex missing device. Needs ping-pong texture buffering to hold N past frames.
-VIZZable-2 used a 160-frame history ring buffer. True ping-pong in Jitter requires:
-```
-jit.gl.texture @name vzbl_pingA @drawto vzbl → slab → vzbl_pingB
-jit.gl.texture @name vzbl_pingB @drawto vzbl → slab → vzbl_pingA
-```
-Use `jit.gl.asyncread` to read back specific frames if needed. Start simple:
-- Just hold 1 frame at configurable delay (1–30 frames)
-- Use a `qmetro` with configurable interval to throttle the copy rate
+#### 8. `vzbl.FX/vzbl.buffr.maxpat` — Multi-frame ring buffer ✅ DONE
+16-slot GPU ring buffer. `counter 16 → gate 16` routes each incoming texture to a named slab slot (`vzbl_buf_0` … `vzbl_buf_15`). Read position = `(write_pos - delay + 16) % 16`. Single delay dial: 0 = 1-frame lag (live-ish), 1 = 15-frame lag (~500ms at 30fps). Fully GPU — no CPU roundtrip.
 
 ---
 
-### LOW — Polish
+### LOW — Remaining polish
 
-- **`vzbl.chromakeyr`**: Key color is hardcoded to green in the shader. Add R/G/B dials to set the key colour (same `pak` → `prepend param keycolor` pattern as clrMapr).
 - **`vzbl.quickclip.maxpat`**: PLAY button label doesn't change when paused. Possible fix: use `sel 1` on outlet → route "start"/"stop" messages and update text.
-- **`vzbl.noisr.maxpat`**: `noisr` and `sprinklr` both animate their seed automatically. Consider adding a LOCK toggle to freeze the seed for static noise.
-- **`vzbl.ganzgraf.maxpat`**: Currently uses only left audio channel. Sum both channels for stereo amplitude.
+- **`vzbl.noisr.maxpat` / `vzbl.sprinklr.maxpat`**: Seeds auto-animate. Consider a LOCK toggle to freeze seed for static noise.
+- **`vzbl.ganzgraf.maxpat`**: Uses only left audio channel (`plugin~` outlet 0). Sum both channels: `+~` both outlets → `avg~`.
+- **`vzbl.buffr.maxpat`**: Currently 16 slots (~533ms). For longer delays, increase `N` in the generator script and regenerate (each step = 1 frame = ~33ms at 30fps).
+- **`vzbl.chromakeyr`**: ✅ Key color RGB dials added (default green).
 
 ### COMPLETE DEVICE INVENTORY (this branch)
 
 **FX (vzbl.FX/):**
-breathr, chromakeyr, clrMapr, cropr, exposr, fisheyr, freezr, hueshiftr,
-kaleidr, lumakeyr, mirrorr, noisr, pixel8r, rgbr, slicr, sprinklr,
-strobr, twistr *(+ original V3: blur, brcosr, color, dirtyfeeder, displacer,
-hue, scanlines, scribbler, zoropr, 2toner)*
+breathr, buffr, chromakeyr, clrMapr, cropr, exposr, fisheyr, freezr,
+hueshiftr, kaleidr, lumakeyr, mirrorr, noisr, pixel8r, rgbr, slicr,
+sprinklr, strobr, twistr *(+ original V3: blur, brcosr, color, dirtyfeeder,
+displacer, hue, scanlines, scribbler, zoropr, 2toner)*
 
 **MIX (vzbl.MIX/):**
 alphaBlendr, oper8tr, tilr2, tilr4 *(+ original V3: mixer, xfader)*
