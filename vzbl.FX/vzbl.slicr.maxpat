@@ -444,6 +444,86 @@
 					"style": "",
 					"text": "prepend param slices"
 				}
+			},
+			{
+				"box": {
+					"id": "slc-rmetro",
+					"maxclass": "newobj",
+					"numinlets": 0,
+					"numoutlets": 1,
+					"outlettype": [
+						""
+					],
+					"patching_rect": [
+						500.0,
+						130.0,
+						80.0,
+						22.0
+					],
+					"style": "",
+					"text": "r vzblmetro"
+				}
+			},
+			{
+				"box": {
+					"id": "slc-cnt",
+					"maxclass": "newobj",
+					"numinlets": 3,
+					"numoutlets": 4,
+					"outlettype": [
+						"int",
+						"bang",
+						"int",
+						"int"
+					],
+					"patching_rect": [
+						500.0,
+						165.0,
+						80.0,
+						22.0
+					],
+					"style": "",
+					"text": "counter 628"
+				}
+			},
+			{
+				"box": {
+					"id": "slc-scph",
+					"maxclass": "newobj",
+					"numinlets": 1,
+					"numoutlets": 2,
+					"outlettype": [
+						"",
+						"float"
+					],
+					"patching_rect": [
+						500.0,
+						200.0,
+						60.0,
+						22.0
+					],
+					"style": "",
+					"text": "* 0.01"
+				}
+			},
+			{
+				"box": {
+					"id": "slc-pph",
+					"maxclass": "newobj",
+					"numinlets": 1,
+					"numoutlets": 1,
+					"outlettype": [
+						""
+					],
+					"patching_rect": [
+						500.0,
+						235.0,
+						130.0,
+						22.0
+					],
+					"style": "",
+					"text": "prepend param phase"
+				}
 			}
 		],
 		"lines": [
@@ -569,6 +649,62 @@
 					"hidden": 0,
 					"source": [
 						"slc-p1",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"slc-cnt",
+						0
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"slc-rmetro",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"slc-scph",
+						0
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"slc-cnt",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"slc-pph",
+						0
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"slc-scph",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"slc-slab",
+						1
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"slc-pph",
 						0
 					]
 				}

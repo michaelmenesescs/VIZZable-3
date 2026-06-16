@@ -329,6 +329,86 @@
 					"style": "",
 					"text": "prepend param amount"
 				}
+			},
+			{
+				"box": {
+					"id": "spr-rmetro",
+					"maxclass": "newobj",
+					"numinlets": 0,
+					"numoutlets": 1,
+					"outlettype": [
+						""
+					],
+					"patching_rect": [
+						500.0,
+						130.0,
+						80.0,
+						22.0
+					],
+					"style": "",
+					"text": "r vzblmetro"
+				}
+			},
+			{
+				"box": {
+					"id": "spr-cnt",
+					"maxclass": "newobj",
+					"numinlets": 3,
+					"numoutlets": 4,
+					"outlettype": [
+						"int",
+						"bang",
+						"int",
+						"int"
+					],
+					"patching_rect": [
+						500.0,
+						165.0,
+						80.0,
+						22.0
+					],
+					"style": "",
+					"text": "counter 628"
+				}
+			},
+			{
+				"box": {
+					"id": "spr-scph",
+					"maxclass": "newobj",
+					"numinlets": 1,
+					"numoutlets": 2,
+					"outlettype": [
+						"",
+						"float"
+					],
+					"patching_rect": [
+						500.0,
+						200.0,
+						60.0,
+						22.0
+					],
+					"style": "",
+					"text": "* 0.001"
+				}
+			},
+			{
+				"box": {
+					"id": "spr-pph",
+					"maxclass": "newobj",
+					"numinlets": 1,
+					"numoutlets": 1,
+					"outlettype": [
+						""
+					],
+					"patching_rect": [
+						500.0,
+						235.0,
+						130.0,
+						22.0
+					],
+					"style": "",
+					"text": "prepend param seed"
+				}
 			}
 		],
 		"lines": [
@@ -412,6 +492,62 @@
 					"hidden": 0,
 					"source": [
 						"spr-p0",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"spr-cnt",
+						0
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"spr-rmetro",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"spr-scph",
+						0
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"spr-cnt",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"spr-pph",
+						0
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"spr-scph",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"spr-slab",
+						1
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"spr-pph",
 						0
 					]
 				}

@@ -329,6 +329,86 @@
 					"style": "",
 					"text": "prepend param amount"
 				}
+			},
+			{
+				"box": {
+					"id": "bth-rmetro",
+					"maxclass": "newobj",
+					"numinlets": 0,
+					"numoutlets": 1,
+					"outlettype": [
+						""
+					],
+					"patching_rect": [
+						500.0,
+						130.0,
+						80.0,
+						22.0
+					],
+					"style": "",
+					"text": "r vzblmetro"
+				}
+			},
+			{
+				"box": {
+					"id": "bth-cnt",
+					"maxclass": "newobj",
+					"numinlets": 3,
+					"numoutlets": 4,
+					"outlettype": [
+						"int",
+						"bang",
+						"int",
+						"int"
+					],
+					"patching_rect": [
+						500.0,
+						165.0,
+						80.0,
+						22.0
+					],
+					"style": "",
+					"text": "counter 628"
+				}
+			},
+			{
+				"box": {
+					"id": "bth-scph",
+					"maxclass": "newobj",
+					"numinlets": 1,
+					"numoutlets": 2,
+					"outlettype": [
+						"",
+						"float"
+					],
+					"patching_rect": [
+						500.0,
+						200.0,
+						60.0,
+						22.0
+					],
+					"style": "",
+					"text": "* 0.01"
+				}
+			},
+			{
+				"box": {
+					"id": "bth-pph",
+					"maxclass": "newobj",
+					"numinlets": 1,
+					"numoutlets": 1,
+					"outlettype": [
+						""
+					],
+					"patching_rect": [
+						500.0,
+						235.0,
+						130.0,
+						22.0
+					],
+					"style": "",
+					"text": "prepend param phase"
+				}
 			}
 		],
 		"lines": [
@@ -412,6 +492,62 @@
 					"hidden": 0,
 					"source": [
 						"bth-p0",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"bth-cnt",
+						0
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"bth-rmetro",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"bth-scph",
+						0
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"bth-cnt",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"bth-pph",
+						0
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"bth-scph",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"bth-slab",
+						1
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"bth-pph",
 						0
 					]
 				}
