@@ -142,32 +142,51 @@ The `vzbl.clrMapr.jxs` file binds `color0` and `color1` as `vec3` params — che
 
 ### MEDIUM — New devices from V2
 
-#### 5. `vzbl.INPUT/vzbl.buffr.maxpat` — Frame buffer / history
-The most complex missing device. Needs ping-pong texture buffering (two `jit.gl.texture` objects alternating).
-Reference V2 approach: `jit.gl.asyncread` + `jit.gl.texture` + manual swap.
-A simpler approximation: use `jit.gl.texture @type char @dim 640 480 @drawto vzbl` and manually copy via a `jit.gl.slab` with passthrough shader into a persistent texture.
+#### 5. `vzbl.FX/vzbl.freezr.maxpat` — Frame freeze ✅ DONE
+Implemented: gate on `r #0-topix` → `jit.gl.slab @out_name vzbl_frz`; metro always sends `vzbl_frz` to topix. Toggle live/freeze.
 
-**Architecture sketch:**
+#### 6. `vzbl.INPUT/vzbl.ganzgraf.maxpat` — Audio-reactive generator ✅ DONE
+Implemented as GLSL shader: reads `plugin~` amplitude → ring+spoke Lissajous pattern. Hue dial + auto phase.
+
+#### 7. `vzbl.INPUT/vzbl.particles.maxpat` — Particle system ✅ DONE
+Implemented via cellular-noise GLSL shader: density/size/speed dials + color RGB + auto-animated phase.
+
+#### 8. `vzbl.INPUT/vzbl.buffr.maxpat` — Multi-frame history buffer ⚠️ REMAINING
+The most complex missing device. Needs ping-pong texture buffering to hold N past frames.
+VIZZable-2 used a 160-frame history ring buffer. True ping-pong in Jitter requires:
 ```
-r vzblmetro → [every N frames] → copy current #0-topix into a held texture
-held texture → s #0-topix (when "freeze" is active)
+jit.gl.texture @name vzbl_pingA @drawto vzbl → slab → vzbl_pingB
+jit.gl.texture @name vzbl_pingB @drawto vzbl → slab → vzbl_pingA
 ```
-
-#### 6. `vzbl.INPUT/vzbl.ganzgraf.maxpat` — Generative 3D
-From V2: audio-reactive 3D geometry rendered to texture. Uses `jit.gl.mesh` or `jit.gl.gridshape` in the `vzbl` GL context.
-Requires understanding V2's `ganzgraf` patch structure (check `https://github.com/zealtv/VIZZable-2`).
-
-#### 7. `vzbl.INPUT/vzbl.particles.maxpat` — Particle system
-From V2: GPU particle system using `jit.gl.shader` or `jit.gl.pix`. Complex — tackle last.
+Use `jit.gl.asyncread` to read back specific frames if needed. Start simple:
+- Just hold 1 frame at configurable delay (1–30 frames)
+- Use a `qmetro` with configurable interval to throttle the copy rate
 
 ---
 
 ### LOW — Polish
 
-- **`vzbl.sprinklr.jxs`**: Currently the `seed` param may not animate smoothly because hash noise is not truly temporal. Consider replacing with a time-based uniform if motion artifacts appear.
-- **`vzbl.clrMapr.jxs`**: Verify `color0`/`color1` are bound as `type="vec3"` in the jxs. If missing, add `<param name="color0" type="vec3" default="0. 0. 0." />` etc.
-- **`vzbl.chromakeyr`**: The key color (what to key out) is hardcoded to green in the shader. Consider adding R/G/B dials to set the key color.
-- **`vzbl.quickclip.maxpat`**: The PLAY button label doesn't change when paused. Consider mapping the toggle text to "PLAY"/"PAUSE".
+- **`vzbl.chromakeyr`**: Key color is hardcoded to green in the shader. Add R/G/B dials to set the key colour (same `pak` → `prepend param keycolor` pattern as clrMapr).
+- **`vzbl.quickclip.maxpat`**: PLAY button label doesn't change when paused. Possible fix: use `sel 1` on outlet → route "start"/"stop" messages and update text.
+- **`vzbl.noisr.maxpat`**: `noisr` and `sprinklr` both animate their seed automatically. Consider adding a LOCK toggle to freeze the seed for static noise.
+- **`vzbl.ganzgraf.maxpat`**: Currently uses only left audio channel. Sum both channels for stereo amplitude.
+
+### COMPLETE DEVICE INVENTORY (this branch)
+
+**FX (vzbl.FX/):**
+breathr, chromakeyr, clrMapr, cropr, exposr, fisheyr, freezr, hueshiftr,
+kaleidr, lumakeyr, mirrorr, noisr, pixel8r, rgbr, slicr, sprinklr,
+strobr, twistr *(+ original V3: blur, brcosr, color, dirtyfeeder, displacer,
+hue, scanlines, scribbler, zoropr, 2toner)*
+
+**MIX (vzbl.MIX/):**
+alphaBlendr, oper8tr, tilr2, tilr4 *(+ original V3: mixer, xfader)*
+
+**INPUT (vzbl.INPUT/):**
+ganzgraf, grabbr, particles, quickclip *(+ original V3: cam, text, videorack)*
+
+**OUTPUT (vzbl.OUTPUT/):**
+Syphon server added to vzbl.window.maxpat
 
 ---
 
