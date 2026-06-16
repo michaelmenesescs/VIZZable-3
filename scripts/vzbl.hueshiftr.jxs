@@ -1,0 +1,13 @@
+<jittershader name="vzbl.hueshiftr">
+	<param name="hue"        type="float" default="0.0" />
+	<param name="saturation" type="float" default="0.5" />
+	<param name="brightness" type="float" default="0.5" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0"       program="fp" />
+		<bind param="hue"        program="fp" />
+		<bind param="saturation" program="fp" />
+		<bind param="brightness" program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.hueshiftr.fp.glsl" />
+	</language>
+</jittershader>

@@ -1,0 +1,9 @@
+<jittershader name="vzbl.mirrorr">
+	<param name="mode" type="int" default="0" />
+	<language name="glsl" version="1.0">
+		<bind param="tex0" program="fp" />
+		<bind param="mode" program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.mirrorr.fp.glsl" />
+	</language>
+</jittershader>

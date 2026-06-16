@@ -1,0 +1,7 @@
+<jittershader name="vzbl.pass">
+	<language name="glsl" version="1.0">
+		<bind param="tex0" program="fp" />
+		<program name="vp" type="vertex"   source="vzbl.v001.scanlines.vp.glsl" />
+		<program name="fp" type="fragment" source="vzbl.pass.fp.glsl" />
+	</language>
+</jittershader>
