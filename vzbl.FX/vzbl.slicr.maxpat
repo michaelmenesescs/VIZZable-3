@@ -142,6 +142,9 @@
 						],
 						"slices": [
 							0.5
+						],
+						"orientation": [
+							0.0
 						]
 					},
 					"style": "",
@@ -175,7 +178,7 @@
 						0.0,
 						0.0,
 						133.0,
-						130.0
+						152.0
 					],
 					"proportion": 0.39,
 					"rounded": 10,
@@ -524,6 +527,122 @@
 					"style": "",
 					"text": "prepend param phase"
 				}
+			},
+			{
+				"box": {
+					"activebgcolor": [
+						0.862745,
+						0.870588,
+						0.878431,
+						1.0
+					],
+					"activebgoncolor": [
+						0.701961,
+						0.811765,
+						0.301961,
+						1.0
+					],
+					"activetextcolor": [
+						0.596078,
+						0.596078,
+						0.596078,
+						1.0
+					],
+					"activetextoncolor": [
+						1.0,
+						1.0,
+						1.0,
+						1.0
+					],
+					"bgoncolor": [
+						0.862745,
+						0.870588,
+						0.878431,
+						1.0
+					],
+					"bordercolor": [
+						0.196078,
+						0.196078,
+						0.196078,
+						0.0
+					],
+					"focusbordercolor": [
+						0.0,
+						0.019608,
+						0.078431,
+						0.0
+					],
+					"hint": "Slice direction",
+					"id": "slc-ori",
+					"maxclass": "live.text",
+					"numinlets": 1,
+					"numoutlets": 2,
+					"outlettype": [
+						"",
+						""
+					],
+					"parameter_enable": 1,
+					"patching_rect": [
+						380.0,
+						200.0,
+						70.0,
+						20.0
+					],
+					"presentation": 1,
+					"presentation_rect": [
+						28.0,
+						103.0,
+						80.0,
+						20.0
+					],
+					"saved_attribute_attributes": {
+						"valueof": {
+							"parameter_linknames": 1,
+							"parameter_longname": "orientation",
+							"parameter_shortname": "ori",
+							"parameter_type": 2,
+							"parameter_mmax": 1.0,
+							"parameter_enum": [
+								"horiz",
+								"vert"
+							],
+							"parameter_initial_enable": 1,
+							"parameter_initial": [
+								0
+							],
+							"parameter_invisible": 0,
+							"parameter_annotation_name": "Orientation"
+						}
+					},
+					"text": "horiz",
+					"textcolor": [
+						0.65098,
+						0.666667,
+						0.662745,
+						1.0
+					],
+					"texton": "vert",
+					"varname": "orientation"
+				}
+			},
+			{
+				"box": {
+					"id": "slc-pori",
+					"maxclass": "newobj",
+					"numinlets": 1,
+					"numoutlets": 1,
+					"outlettype": [
+						""
+					],
+					"patching_rect": [
+						380.0,
+						240.0,
+						135.0,
+						22.0
+					],
+					"style": "",
+					"text": "prepend param orientation"
+				}
 			}
 		],
 		"lines": [
@@ -708,6 +827,34 @@
 						0
 					]
 				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"slc-pori",
+						0
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"slc-ori",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"destination": [
+						"slc-slab",
+						1
+					],
+					"disabled": 0,
+					"hidden": 0,
+					"source": [
+						"slc-pori",
+						0
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -719,6 +866,11 @@
 			"slc-d1": [
 				"slices",
 				"slices",
+				0
+			],
+			"slc-ori": [
+				"orientation",
+				"ori",
 				0
 			]
 		},
